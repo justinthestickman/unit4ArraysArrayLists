@@ -1,4 +1,4 @@
-
+import java.lang.Math;
 /**
  * The model for radar scan and accumulator
  * 
@@ -34,26 +34,16 @@ public class Radar
     public Radar(int rows, int cols)
     {
         // initialize the currentScan 2D array and the accumulator 2D array
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                
-            }
-        }
-        
-        //
-        // !!! add code here !!!
-        //
-        
+        this.currentScan = new boolean[rows][cols];
+        this.accumulator = new int[rows][cols];
         
         // randomly set the location of the monster (can be explicity set through the
         //  setMonsterLocation method for the unit test
-        monsterLocationRow = (int)(Math.random() * rows);
-        monsterLocationCol = (int)(Math.random() * cols);
+        this.monsterLocationRow = (int)(Math.random() * rows);
+        this.monsterLocationCol = (int)(Math.random() * cols);
         
-        noiseFraction = 0.05;
-        numScans= 0;
+        this.noiseFraction = 0.05;
+        this.numScans= 0;
     }
     
     /**
@@ -69,12 +59,14 @@ public class Radar
         //    4. update the accumulator 2D array based on the state of the currentScan 2D array
         //    5. increment the numScans instance variable
         
-        
-        //
-        // !!! add code here !!!
-        //
-        
-        
+        for (int i = 0; i < this.currentScan.length; i++)
+        {
+            for (int j = 0; j < this.currentScan[0].length; j++)
+            {
+                this.currentScan[i][j] = false;
+            }
+        }
+        this.setMonsterLocation(monsterLocationRow,monsterLocationCol);
     }
 
     /**
@@ -87,11 +79,11 @@ public class Radar
     public void setMonsterLocation(int row, int col)
     {
         // remember the row and col of the monster's location
-        monsterLocationRow = row;
-        monsterLocationCol = col;
+        this.monsterLocationRow = row;
+        this.monsterLocationCol = col;
         
         // update the radar grid to show that something was detected at the specified location
-        currentScan[row][col] = true;
+        this.currentScan[row][col] = true;
     }
     
      /**
@@ -102,7 +94,7 @@ public class Radar
      */
     public void setNoiseFraction(double fraction)
     {
-        noiseFraction = fraction;
+        this.noiseFraction = fraction;
     }
     
     /**
@@ -114,7 +106,7 @@ public class Radar
      */
     public boolean isDetected(int row, int col)
     {
-        return currentScan[row][col];
+        return this.currentScan[row][col];
     }
     
     /**
@@ -128,7 +120,7 @@ public class Radar
      */
     public int getAccumulatedDetection(int row, int col)
     {
-        return accumulator[row][col];
+        return this.accumulator[row][col];
     }
     
     /**
@@ -138,7 +130,7 @@ public class Radar
      */
     public int getNumRows()
     {
-        return currentScan.length;
+        return this.currentScan.length;
     }
     
     /**
@@ -148,7 +140,7 @@ public class Radar
      */
     public int getNumCols()
     {
-        return currentScan[0].length;
+        return this.currentScan[0].length;
     }
     
     /**
@@ -158,7 +150,7 @@ public class Radar
      */
     public int getNumScans()
     {
-        return numScans;
+        return this.numScans;
     }
     
     /**
@@ -172,12 +164,17 @@ public class Radar
         // detected as a false positive. Use the Math.random method to determine if each cell should be set
         // as a false positive.
         
-        
-        //
-        // !!! add code here !!!
-        //
-        
-        
+        for (int i = 0; i < this.currentScan.length; i++)
+        {
+            for (int j = 0; j < this.currentScan[0].length; j++)
+            {
+                double x = Math.random();
+                if (this.currentScan[i][j] == false && x <= this.noiseFraction)
+                {
+                    this.currentScan[i][j] = true;
+                }
+            }
+        }
     }
     
 }

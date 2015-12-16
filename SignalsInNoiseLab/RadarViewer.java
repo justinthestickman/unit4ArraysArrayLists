@@ -27,26 +27,38 @@ public class RadarViewer
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         Scanner scanner = new Scanner(System.in);
-        int row;
-        int col;
+        String choice;
         do
         {
-            //Prompts the user for what row the monster's location should be at
-            //Makes sure it isn't out of bounds and reprompts if it is
-            System.out.print("Monster Location Row: ");
-            row = scanner.nextInt();
+            //Asks the user if they want to set the monster's location
+            System.out.print("Would you like to set the monster's location yourself? (Y/N): ");
+            choice = scanner.next();
         }
-        while (row >= 100 || row < 0);
-        do
+        while (choice.equals("Y") == false && choice.equals("N") == false);
+        if (choice.equals("Y"))
         {
-            //Prompts the user for what column the monster's location should be at
-            //Makes sure it isn't out of bounds and reprompts if it is
-            System.out.print("Monster Location Column: ");
-            col = scanner.nextInt();
+            //If the user does want to set the monster's location, this is run
+            int row;
+            int col;
+            do
+            {
+                //Prompts the user for what row the monster's location should be at
+                //Makes sure it isn't out of bounds and reprompts if it is
+                System.out.print("Monster Location Row: ");
+                row = scanner.nextInt();
+            }
+            while (row >= 100 || row < 0);
+            do
+            {
+                //Prompts the user for what column the monster's location should be at
+                //Makes sure it isn't out of bounds and reprompts if it is
+                System.out.print("Monster Location Column: ");
+                col = scanner.nextInt();
+            }
+            while (col >= 100 || col < 0);
+            //Sets the monster's location to the user-specified values
+            radar.setMonsterLocation(row,col);
         }
-        while (col >= 100 || col < 0);
-        //Sets the monster's location to the user-specified values
-        radar.setMonsterLocation(row,col);
         
         // a frame contains a single component; create the radar component and add it to the frame
         RadarComponent component = new RadarComponent(radar);

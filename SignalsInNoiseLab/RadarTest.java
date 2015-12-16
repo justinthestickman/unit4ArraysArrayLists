@@ -24,16 +24,21 @@ public class RadarTest
     
     @Test
     /**
-     * 
+     * Tests the Radar class with monster location (32,25)
      */
     public void test1()
     {
         this.radar.setMonsterLocation(32,25);
         this.radar.setNoiseFraction(0.05);
+        
+        //Runs the radar's scan method many times
         for (int i = 0; i < 100; i++)
         {
             this.radar.scan();
         }
+        
+        //Algorithm to find the location with the greatest number of detections
+        //This is the location of the monster
         int largest = 0;
         int x = 0;
         int y = 0;
@@ -42,7 +47,7 @@ public class RadarTest
             for (int j = 0; j < 100; j++)
             {
                 int n = this.radar.getAccumulatedDetection(i,j);
-                if (x > largest)
+                if (n > largest)
                 {
                     largest = n;
                     x = i;
@@ -50,22 +55,29 @@ public class RadarTest
                 }
             }
         }
+        
+        //Makes sure actual location matches expected location
         assertEquals(x,32);
         assertEquals(y,25);
     }
     
     @Test
     /**
-     * 
+     * Tests the Radar class with monster location (64,36)
      */
     public void test2()
     {
         this.radar.setMonsterLocation(64,36);
         this.radar.setNoiseFraction(0.05);
+        
+        //Runs the radar's scan method many times
         for (int i = 0; i < 100; i++)
         {
             this.radar.scan();
         }
+        
+        //Algorithm to find the location with the greatest number of detections
+        //This is the location of the monster
         int largest = 0;
         int x = 0;
         int y = 0;
@@ -74,7 +86,7 @@ public class RadarTest
             for (int j = 0; j < 100; j++)
             {
                 int n = this.radar.getAccumulatedDetection(i,j);
-                if (x > largest)
+                if (n > largest)
                 {
                     largest = n;
                     x = i;
@@ -82,7 +94,9 @@ public class RadarTest
                 }
             }
         }
-        assertEquals(x,32);
-        assertEquals(y,25);
+        
+        //Makes sure actual location matches expected location
+        assertEquals(x,64);
+        assertEquals(y,36);
     }
 }

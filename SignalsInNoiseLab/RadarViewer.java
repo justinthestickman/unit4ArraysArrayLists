@@ -1,5 +1,5 @@
 import javax.swing.JFrame;
-
+import java.util.Scanner;
 /**
  * Class that contains the main method for the program and creates the frame containing the component.
  * 
@@ -26,6 +26,28 @@ public class RadarViewer
         frame.setTitle("Signals in Noise Lab");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        Scanner scanner = new Scanner(System.in);
+        int row;
+        int col;
+        do
+        {
+            //Prompts the user for what row the monster's location should be at
+            //Makes sure it isn't out of bounds and reprompts if it is
+            System.out.print("Monster Location Row: ");
+            row = scanner.nextInt();
+        }
+        while (row >= 100 || row < 0);
+        do
+        {
+            //Prompts the user for what column the monster's location should be at
+            //Makes sure it isn't out of bounds and reprompts if it is
+            System.out.print("Monster Location Column: ");
+            col = scanner.nextInt();
+        }
+        while (col >= 100 || col < 0);
+        //Sets the monster's location to the user-specified values
+        radar.setMonsterLocation(row,col);
+        
         // a frame contains a single component; create the radar component and add it to the frame
         RadarComponent component = new RadarComponent(radar);
         frame.add(component);
@@ -37,7 +59,7 @@ public class RadarViewer
         //  component.
         frame.setVisible(true);
         
-        // perform 100 scans of the radar wiht a slight pause between each
+        // perform 100 scans of the radar with a slight pause between each
         // after each scan, instruct the Java Run-Time to redraw the window
         for(int i = 0; i < 100; i++)
         {

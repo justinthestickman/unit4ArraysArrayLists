@@ -58,6 +58,8 @@ public class Radar
         //    3. inject noise into the grid
         //    4. update the accumulator 2D array based on the state of the currentScan 2D array
         //    5. increment the numScans instance variable
+        
+        //Resets to no detections (step 1)
         for (int i = 0; i < this.currentScan.length; i++)
         {
             for (int j = 0; j < this.currentScan[0].length; j++)
@@ -65,8 +67,14 @@ public class Radar
                 this.currentScan[i][j] = false;
             }
         }
+        
+        //Sets the location of the monster (step 2)
         this.setMonsterLocation(monsterLocationRow,monsterLocationCol);
+        
+        //Injects noise (step 3)
         this.injectNoise();
+        
+        //Increments each detected location in the accumulator array (step 4)
         for (int i = 0; i < this.currentScan.length; i++)
         {
             for (int j = 0; j < this.currentScan[0].length; j++)
@@ -77,6 +85,8 @@ public class Radar
                 }
             }
         }
+        
+        //Increments the number of scans (step 5)
         this.numScans++;
     }
 
